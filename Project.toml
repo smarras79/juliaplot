@@ -1,3 +1,4 @@
 [deps]
+ClimateBase = "35604d93-0fb8-4872-9436-495b01d137e2"
 NetCDF = "30363a11-5582-574a-97bb-aa9a979735b9"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
