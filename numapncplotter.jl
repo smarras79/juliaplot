@@ -1,3 +1,4 @@
+using ClimateBase
 using NetCDF
 using Plots
 
@@ -16,8 +17,8 @@ ycoords = ncread(fn,"y")
 zcoords = ncread(fn,"z")
 theta  = ncread(fn,"theta")
 
-@info size(theta) size(x)
-plot(x=xcoords, y=ycoords, z=theta)
+@info size(theta) size(xcoords)
+contour(x=xcoords, y=ycoords, z=theta)
 
 
 
