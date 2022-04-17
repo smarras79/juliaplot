@@ -18,10 +18,15 @@ function myfindall(condition, x)
     return results
 end
 
-function example_convex_hull(;Plotter=nothing,n=10,raster=10)
+function example_convex_hull(v1, v2;Plotter=nothing,n=10,raster=10)
     triin=Triangulate.TriangulateIO()
-    triin.pointlist=hcat(unique([ Cdouble[rand(1:raster)/raster, rand(1:raster)/raster] for i in 1:n])...)
-    @show size(triin.pointlist) #QUIIII now modify this to use my XSLICE ad YSLICE
+    @info size(v1)
+    @info size(v2)
+    @info size(Cdouble[rand(1:raster)/raster, rand(1:raster)/raster])
+    #triin.pointlist=hcat(unique([ Cdouble[rand(1:raster)/raster, rand(1:raster)/raster] for i in 1:n])...)
+    
+    triin.pointlist=[v1; v2]
+    @info size(triin.pointlist) #QUIIII now modify this to use my XSLICE ad YSLICE
     display(triin)
     (triout, vorout)=triangulate("Q", triin)
     display(triout)
@@ -34,8 +39,8 @@ function main()
     tri = pyimport("matplotlib.tri")
     np  = pyimport("numpy")
 
-    #filepath = "/Users/simone/Work/numa-git/GitLab_NPS/IMEXbranch/numa3d/myruns/amr/WORKING-AMR-TC-35th-conference"
-    filepath = "/Users/simone/Work/numa-git/GitLab_NPS/IMEXbranch/numa3d/myruns/AMR/case13/WORKING-AMR-TC-35th-conference/"
+    filepath = "/Users/simone/Work/numa-git/GitLab_NPS/IMEXbranch/numa3d/myruns/amr/WORKING-AMR-TC-35th-conference"
+    #filepath = "/Users/simone/Work/numa-git/GitLab_NPS/IMEXbranch/numa3d/myruns/AMR/case13/WORKING-AMR-TC-35th-conference/"
     filename = "case13_AMR=3_0.025000_set2nc_cgd_ark2_schur_3d_p4est_0001.nc"
 
 
@@ -67,8 +72,10 @@ function main()
     #
     xslice = xcoords[zslice_idx]
     yslice = ycoords[zslice_idx]
-    
-    example_convex_hull(Plotter=PyPlot,n=10,raster=10);
+
+    v1 = [1, 2, 3]
+    v2 = [4, 5, 6]
+    example_convex_hull(v1, v2; Plotter=PyPlot,n=10,raster=10);
     
     #triang = Triangulate(xslice, yslice)
     #triang       = tri.Triangulation(xslice, yslice)
